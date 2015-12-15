@@ -5,7 +5,8 @@ import 'babel-core/polyfill';
 import {
   Component, View, Attribute,
   provide,
-  bootstrap
+  bootstrap,
+  NgFor
 } from 'angular2/angular2';
 import {
   Router, RouteConfig, RouteParams,
@@ -13,14 +14,17 @@ import {
   ROUTER_PROVIDERS, ROUTER_DIRECTIVES, ROUTER_PRIMARY_COMPONENT
 } from 'angular2/router';
 
-import { Greeter } from './services';
+import { Greeter, NamesList } from './services';
+import { Bye } from './bye.component';
 
 @Component({
   selector: 'hello'
 })
+
 @View({
   template: '<p>{{ message }}</p>'
 })
+
 class Hello {
   constructor(greeter: Greeter) {
     this.message = greeter.say('hello', 'Angular 2');
@@ -57,22 +61,18 @@ class Linker {
   viewProviders: [Greeter]
 })
 @View({
-  directives: [ROUTER_DIRECTIVES, Linker],
-  template: `
-    <ul>
-      <li><a [router-link]="['/Hello']">Hello</a></li>
-      <li><a [router-link]="['/Ciao', { name: 'ng2' }]">Ciao</a></li>
-    </ul>
-    <router-outlet></router-outlet>
-    <linker name="GitHub" url="https://github.com/shuhei/babel-angular2-app"></linker>
-  `
+  directives: [ROUTER_DIRECTIVES, Linker, Bye],
+  templateUrl: './templates/hello-app.html'
 })
 @RouteConfig([
   { path: '/', component: Hello, as: 'Hello' },
+  // { path: '/test', component: MyRoute, as: 'MyRoute' },
   { path: '/ciao/:name', component: Ciao, as: 'Ciao' }
 ])
 class HelloApp {
 }
+
+
 
 bootstrap(HelloApp, [
   ROUTER_PROVIDERS,

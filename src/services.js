@@ -12,3 +12,17 @@ export class Greeter {
     }
   }
 }
+
+export class NamesList {
+    constructor() {
+        this.list = ['John'];
+    }
+
+    getList() {
+        return this.list;
+    }
+
+    addName(name: string) {
+        this.list.push(name);
+    }
+}
