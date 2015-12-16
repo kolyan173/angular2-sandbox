@@ -9,9 +9,19 @@ import babelify from 'babelify';
 
 import del from 'del';
 
+function copyIndex() {
+    return gulp.src('src/index.html')
+        .pipe(gulp.dest('public'));
+}
+
+function copyTemplates() {
+    return gulp.src('src/templates/**/*')
+        .pipe(gulp.dest('public/templates'));
+}
+
 gulp.task('copy', () => {
-  return gulp.src('src/index.html')
-    .pipe(gulp.dest('public'));
+    copyIndex();
+    copyTemplates();
 });
 
 gulp.task('build', ['copy'], () => {
