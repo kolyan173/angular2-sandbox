@@ -1,0 +1,11 @@
+<div>
+    <h2>Bye component</h2>
+    <div class="name">
+        Good bye <span>{{name}}</span>
+    </div>
+    <input #text (keyup)="0" (keyup.enter)="changeName(text.value)"/>
+    <!-- <input [(model)]="text"/> -->
+    <button (click)="changeName(text.value)">Click me!</button>
+    <div>{{text.value}}</div>
+    <h2>End of Bye component</h2>
+</div>

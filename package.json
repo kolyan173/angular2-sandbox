@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "angular2": "2.0.0-alpha.44",
+    "gulp-flatten": "^0.2.0",
     "reflect-metadata": "^0.1.0",
     "zone.js": "^0.5.8"
   }

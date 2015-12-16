@@ -14,8 +14,11 @@ import {
   ROUTER_PROVIDERS, ROUTER_DIRECTIVES, ROUTER_PRIMARY_COMPONENT
 } from 'angular2/router';
 
-import { Greeter, NamesList } from './services';
-import { Bye } from './bye.component';
+import { Greeter, NamesList } from './services/services';
+import { Bye } from './components/bye/bye.component';
+import { Accordion } from './components/accordion/accordion.component';
+import { HeroFormComponent } from './components/hero-form/hero-form.component';
+import { Hero } from './components/hero-form//hero-model';
 
 @Component({
   selector: 'hello'
@@ -61,8 +64,8 @@ class Linker {
   viewProviders: [Greeter]
 })
 @View({
-  directives: [ROUTER_DIRECTIVES, Linker, Bye],
-  templateUrl: './templates/hello-app.html'
+  directives: [ROUTER_DIRECTIVES, Linker, Bye, Accordion, HeroFormComponent],
+  templateUrl: './hello-app.html'
 })
 @RouteConfig([
   { path: '/', component: Hello, as: 'Hello' },
@@ -70,9 +73,10 @@ class Linker {
   { path: '/ciao/:name', component: Ciao, as: 'Ciao' }
 ])
 class HelloApp {
+    constructor() {
+        this.username = 'user name value';
+    }
 }
-
-
 
 bootstrap(HelloApp, [
   ROUTER_PROVIDERS,

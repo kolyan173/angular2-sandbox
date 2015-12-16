@@ -1,0 +1,6 @@
+<h2>Accordion component</h2>
+<button (click)="toggle()">{{visible ? 'Close me' : 'Open me'}}</button>
+<div [hidden]="!visible" class="content">
+    <ng-content></ng-content>
+</div>
+<h2> End of accordion component</h2>

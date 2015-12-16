@@ -1,8 +1,17 @@
+<h1>{{username}}</h1>
+
+<accordion>
+    Here I am !!!
+</accordion>
+
 <ul>
     <li><a [router-link]="['/Hello']">Hello</a></li>
     <li><a [router-link]="['/Ciao', { name: 'ng2' }]">Ciao</a></li>
 </ul>
 
-<bye user-name="John" title="Tile" test="PIPA"></bye>
+<bye user-name="John"></bye>
+<!-- <bye user-name="John" value="username"></bye> -->
+<hero-form></hero-form>
+
 <router-outlet></router-outlet>
 <linker name="GitHub" url="https://github.com/shuhei/babel-angular2-app"></linker>

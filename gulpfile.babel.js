@@ -6,21 +6,16 @@ import buffer from 'vinyl-buffer';
 import browserify from 'browserify';
 import watchify from 'watchify';
 import babelify from 'babelify';
+import flatten from 'gulp-flatten';
 
 import del from 'del';
 
-function copyIndex() {
-    return gulp.src('src/index.html')
-        .pipe(gulp.dest('public'));
-}
-
-function copyTemplates() {
-    return gulp.src('src/templates/**/*')
-        .pipe(gulp.dest('public/templates'));
-}
-
 gulp.task('copy', () => {
     copyIndex();
+    copyTemplates();
+});
+
+gulp.task('copyTmpl', () => {
     copyTemplates();
 });
 
@@ -31,12 +26,15 @@ gulp.task('build', ['copy'], () => {
 });
 
 gulp.task('watch', () => {
-  const b = browserify('src/app.js', watchify.args)
-    .transform(babelify);
-  const w = watchify(b)
-    .on('update', () => bundle(w))
-    .on('log', gutil.log);
-  return bundle(w)
+    watchApp();
+    watchTemplates();
+  // const b = browserify('src/app.js', watchify.args)
+  //   .transform(babelify);
+  // const w = watchify(b)
+  //   .on('update', () => bundle(w))
+  //   .on('log', gutil.log);
+
+  // return bundle(w)
 });
 
 gulp.task('clean', () => {
@@ -54,4 +52,28 @@ function bundle(b) {
     .pipe(source('app.js'))
     .pipe(buffer())
     .pipe(gulp.dest('public'));
+}
+
+function copyIndex() {
+    return gulp.src('src/index.html')
+        .pipe(gulp.dest('public'));
+}
+
+function copyTemplates() {
+    return gulp.src(['src/templates/**/*', 'src/components/**/*.html'])
+        .pipe(flatten())
+        .pipe(gulp.dest('public'));
+}
+
+function watchApp() {
+    const b = browserify('src/app.js', watchify.args)
+        .transform(babelify);
+    const w = watchify(b)
+        .on('update', () => bundle(w))
+        .on('log', gutil.log);
+
+    return bundle(w)
+}
+function watchTemplates() {
+    return gulp.watch('src/**/*.html', ['copyTmpl']);
 }
